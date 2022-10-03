@@ -39,13 +39,13 @@
 </div>
 <label for="">Hobbies:</label>
 <div class="form-check">
-  <input class="form-check-input" type="checkbox" name="Gardening" id="flexCheckDefault" {{$student->Gardening?'checked':""}}>
+  <input class="form-check-input" type="checkbox" name="Gardening" id="flexCheckDefault" {{$student->hobbies=="Gardening"?'checked':""}}{{$student->hobbies=="Gardening and Playing football"?'checked':""}}>
   <label class="form-check-label" for="flexCheckDefault">
     Gardening
   </label>
 </div>
 <div class="form-check">
-  <input class="form-check-input" type="checkbox" name="Playing football" id="flexCheckChecked" {{$student->Playing_football ?'checked':""}}>
+  <input class="form-check-input" type="checkbox" name="Playing football" id="flexCheckChecked" {{$student->hobbies=="Playing football"?'checked':""}}{{$student->hobbies=="Gardening and Playing football"?'checked':""}}>>
   <label class="form-check-label" for="flexCheckChecked">
    Playing football
   </label>
