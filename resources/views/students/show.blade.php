@@ -22,6 +22,6 @@
     <p>DOB:{{$student->dob}}</p>
     <p>Gender:{{$student->gender}}</p>
     <p>Hobbies:{{$student->hobbies}}</p>
-    <p>Nationality:{{$student->nationality}}</p>
+    
 
 </x-master>
