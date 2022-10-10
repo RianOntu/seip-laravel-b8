@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Models\Student;
 use Illuminate\Http\Request;
+use Barryvdh\DomPDF\Facade\Pdf;
+use Illuminate\Support\Facades\Storage;
 
 class StudentController extends Controller
 {
@@ -37,6 +39,10 @@ class StudentController extends Controller
         return view('students.create');
     }
     public function store(Request $request){
+         $file=$request->file('image');
+         $filename=date('Y-m-d').time(). '.'.$file->getClientOriginalExtension();
+         $file->move(storage_path('app/public/students'),$filename);
+
         if($request->Gardening){
             $data='Gardening';
         }
@@ -50,7 +56,8 @@ class StudentController extends Controller
         'name'=>$request->name,
         'dob'=>$request->dob,
         'gender'=>$request->flexRadioDefault,
-        'hobbies'=>$data
+        'hobbies'=>$data,
+        'image'=>$filename
        ]);
 
        return redirect()->route('students.index')->withMessage('Created Successfully!');
@@ -79,4 +86,42 @@ class StudentController extends Controller
         $student->update($data1);
         return redirect()->route('students.index')->withMessage('Updated Successfully!');
     }
+    public function trash(){
+        
+        $students = Student::onlyTrashed()->get();
+
+       
+
+        return view('students.trash', compact('students'));
+    
+}
+public function restore($id)
+{
+    $student = Student::onlyTrashed()->find($id);
+    $student->restore();
+
+    
+
+    return redirect()
+        ->route('students.trash')
+        ->withMessage('Restored Successfully!');
+}
+public function delete($id)
+{
+    $student = Student::onlyTrashed()->find($id);
+    $student->forceDelete();
+
+    
+
+    return redirect()
+        ->route('students.trash')
+        ->withMessage('Deleted Successfully!');
+}
+public function downloadPdf(){
+    $students=Student::all();
+    
+    $pdf = Pdf::loadView('students.pdf', compact('students'));
+    return $pdf->download('studentlist.pdf');
+}
+
 }

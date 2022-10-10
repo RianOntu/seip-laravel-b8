@@ -26,6 +26,7 @@ Route::get('/categories/{id}/delete', [CategoryController::class, 'destroy'])->n
 Route::get('/students', [StudentController::class, 'index'])->name('students.index');
 Route::get('/students/create', [StudentController::class, 'create'])->name('students.create');
 Route::post('/students/store', [StudentController::class, 'store'])->name('students.store');
+Route::get('/students/pdf',[StudentController::class,'downloadPdf'])->name('students.pdf');
 
 
 Route::get('/students/{id}', [StudentController::class, 'show'])->name('students.show');
@@ -36,7 +37,9 @@ Route::put('/students/{id}/update', [StudentController::class, 'update'])->name(
 
 
 Route::get('/students/{id}/delete', [StudentController::class, 'destroy'])->name('students.destroy');
-
+Route::get('/student-trash',[StudentController::class,'trash'])->name('students.trash');
+Route::patch('/students/{id}',[StudentController::class,'restore'])->name('students.restore');
+Route::delete('/students/{id}',[StudentController::class,'delete'])->name('students.delete');
 
 
 

@@ -4,13 +4,11 @@
         </x-slot>
 
         <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
-            <h1 class="h2">Students</h1>
+            <h1 class="h2">Trashed Students</h1>
             <div class="btn-toolbar mb-2 mb-md-0">
                 <div class="btn-group me-2">
                     <button type="button" class="btn btn-sm btn-outline-secondary">Export PDF</button>
                     <button type="button" class="btn btn-sm btn-outline-secondary">Export Excel</button>
-                    <a href="{{route('students.pdf')}}"><button type="button" class="btn btn-sm btn-outline-primary">Download Pdf</button></a>
-               <a href="{{route('students.trash')}}"><button type="button" class="btn btn-sm btn-outline-danger">Trash</button></a>
                 </div>
                <a href="{{route('students.create')}}">
                <button type="button" class="btn btn-sm btn-outline-primary">
@@ -49,10 +47,17 @@
                     <td>{{$student->hobbies}}</td>
                   
                     <td>
-                        <a class="btn btn-sm btn-outline-info" href="{{ route('students.show', $student->id) }}">Show</a>
-                        | <a class="btn btn-sm btn-outline-warning" href="{{route('students.edit',$student->id)}}">Edit</a>  |
-
-                        <a class="btn btn-sm btn-outline-danger" href="{{ route('students.destroy', $student->id) }}">Delete</a>
+                    <a class="btn btn-sm btn-outline-info" href="{{ route('students.show', $student->id) }}">Show</a>|
+                        <form action="{{ route('students.restore', $student->id) }}" method="post">
+                            @csrf
+                            @method('patch')
+                        <button class="btn btn-sm btn-outline-warning">Restore</button> 
+                        </form>|
+                        <form action="{{ route('students.delete', $student->id) }}" method="post">
+                            @csrf
+                            @method('delete')
+                        <button class="btn btn-sm btn-outline-danger" href="">Delete</button>
+                        </form>
                     </td>
                 </tr>
                 @endforeach

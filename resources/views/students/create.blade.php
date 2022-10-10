@@ -5,7 +5,7 @@
 
 <h1>Create page</h1>
 
-<form method="post" action="{{route('students.store')}}">
+<form method="post" action="{{route('students.store')}}" enctype="multipart/form-data">
 @csrf 
 <div class="mb-3">
     <label for="exampleInputEmail1" class="form-label">Name:</label>
@@ -49,6 +49,8 @@
    Playing football
   </label>
 </div>
+
+<input type="file" name="image"><br><br>
  
   <button type="submit" class="btn btn-primary">Submit</button>
 </form>

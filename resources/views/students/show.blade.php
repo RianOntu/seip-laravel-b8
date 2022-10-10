@@ -22,6 +22,6 @@
     <p>DOB:{{$student->dob}}</p>
     <p>Gender:{{$student->gender}}</p>
     <p>Hobbies:{{$student->hobbies}}</p>
-    
+    <img src="{{asset('storage/students/'.$student->image)}}" alt="" height="250">
 
 </x-master>
